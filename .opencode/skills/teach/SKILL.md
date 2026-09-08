@@ -39,7 +39,14 @@ updates lesson state. Never announce, predict, re-grade, or contradict it.
    `Glossary.md`.
 3. Skim related files under `lessons/` for prior knowledge, including the
    current lesson's `Glossary.md` when resuming.
-4. Elicit the real goal. Use native `question` for ungraded questions about
+4. **Resource bucket:** when the learner names resources or asks for a
+   resource-based lesson, treat `./project/resources` as the resource root.
+   Read only the explicitly named or referenced files beneath it; do not bulk
+   ingest the bucket or invent filenames. Use the available file-reading tool,
+   preserve the real paths in your notes, and state plainly when a referenced
+   file is missing or unreadable. Resource-derived facts must be distinguished
+   from general knowledge and should be cited by relative path when taught.
+5. Elicit the real goal. Use native `question` for ungraded questions about
    purpose, depth, preferences, or pacing—never to test understanding. Ask one
    question at a time until the goal can be stated as one sentence describing
    what the learner will be able to do or derive.
