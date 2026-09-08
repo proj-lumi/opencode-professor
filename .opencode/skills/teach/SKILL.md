@@ -33,8 +33,12 @@ updates lesson state. Never announce, predict, re-grade, or contradict it.
    follow **Resuming a lesson**.
 2. Call `lesson_log` with `lessons/<topic-slug>/lesson.md` and the topic title.
    The plugin mirrors the OpenCode session into this permanent transcript at
-   the end of each turn.
-3. Skim related files under `lessons/` for prior knowledge.
+   the end of each turn. Every lesson also owns
+   `lessons/<topic-slug>/Glossary.md`; define new jargon inline and add a
+   concise entry to that file. Never create or update a project-root
+   `Glossary.md`.
+3. Skim related files under `lessons/` for prior knowledge, including the
+   current lesson's `Glossary.md` when resuming.
 4. Elicit the real goal. Use native `question` for ungraded questions about
    purpose, depth, preferences, or pacing—never to test understanding. Ask one
    question at a time until the goal can be stated as one sentence describing

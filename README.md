@@ -18,6 +18,7 @@ session transcript are saved in the project being taught.
 | Graded quizzes | Native Desktop questions graded by the Professor plugin |
 | Durable progress | `lesson_state` writes `lessons/<topic>/state.json` and `learning-plan.md` |
 | Lesson transcript | `lesson_log` mirrors the session to `lesson.md` |
+| Lesson glossary | Each lesson keeps jargon in `lessons/<topic>/Glossary.md` |
 | Fact checking | `professor-researcher` subagent |
 | Diagrams | `professor-svg-artist` with render-and-inspect SVG tools |
 | Slash commands | `/teach`, `/resume`, `/lessons`, `/gap`, and `/log` |
@@ -56,6 +57,7 @@ lessons/<topic>/
 ├── state.json
 ├── lesson.md
 ├── learning-plan.md
+├── Glossary.md
 └── assets/
 ```
 

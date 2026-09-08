@@ -239,6 +239,7 @@ export default async function ProfessorPlugin({ client, directory }) {
           })
           fs.mkdirSync(path.join(path.dirname(file), "assets"), { recursive: true })
         }
+        ensureMarkdown(path.join(path.dirname(file), "Glossary.md"), "Glossary")
         attachSession(state, context.sessionID)
         saveState(file, state)
         updateProgressMap(context.directory, state)
