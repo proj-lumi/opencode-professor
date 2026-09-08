@@ -5,12 +5,16 @@ on:
   pull_request:
 
 jobs:
-  test:
+  shell:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - run: npm test
-      - run: npm run check
+      - run: sh -n scripts/install.sh scripts/uninstall.sh tests/install.sh
+      - run: sh tests/install.sh
+
+  powershell:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - shell: powershell
+        run: powershell -NoProfile -ExecutionPolicy Bypass -File tests/install.ps1

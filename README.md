@@ -6,45 +6,34 @@ questions.
 
 ## Install
 
-Requirements: OpenCode Desktop and Node.js 22 or newer.
+No package manager or Node.js installation is required.
 
-```bash
-node scripts/install.mjs
-```
+| Platform | Command |
+|---|---|
+| Linux or macOS | `sh scripts/install.sh` |
+| Windows PowerShell | `powershell -ExecutionPolicy Bypass -File .\scripts\install.ps1` |
 
 Restart OpenCode Desktop, then choose **Professor** from the agent selector in
 the message composer. You can also cycle primary agents with `Tab`.
 
-The installer creates one symbolic link:
+The installer copies the agent to:
 
 ```text
 ~/.config/opencode/agents/professor.md
 ```
 
-It does not install packages or change `opencode.json`.
-
-To use another OpenCode config directory:
-
-```bash
-OPENCODE_CONFIG_DIR=/path/to/config node scripts/install.mjs
-```
-
-The installer refuses to overwrite an existing `professor.md` that it does not
-own.
+Set `OPENCODE_CONFIG_DIR` to use another OpenCode config directory. Re-running
+the installer updates its managed copy, but it refuses to overwrite an existing
+Professor agent that it does not manage.
 
 ## Uninstall
 
-```bash
-node scripts/uninstall.mjs
-```
+| Platform | Command |
+|---|---|
+| Linux or macOS | `sh scripts/uninstall.sh` |
+| Windows PowerShell | `powershell -ExecutionPolicy Bypass -File .\scripts\uninstall.ps1` |
 
-The uninstaller only removes links created from this repository.
-
-## Development
-
-```bash
-npm test
-npm run check
-```
+The uninstaller only removes the agent file when it contains this repository's
+management marker.
 
 The agent definition lives at [`.opencode/agents/professor.md`](.opencode/agents/professor.md).
