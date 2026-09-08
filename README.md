@@ -12,7 +12,7 @@ session transcript are saved in the project being taught.
 ## Included
 
 | Piece | OpenCode implementation |
-|---|---|
+| --- | --- |
 | Selectable tutor | Primary agent at `.opencode/agents/professor.md` |
 | Teaching protocol | Skill at `.opencode/skills/teach/SKILL.md` |
 | Graded quizzes | Native Desktop questions graded by the Professor plugin |
@@ -29,7 +29,7 @@ No package manager or separate Node.js installation is required. OpenCode
 provides the plugin runtime and prepares its matching plugin SDK at startup.
 
 | Platform | Command |
-|---|---|
+| --- | --- |
 | Linux or macOS | `sh scripts/install.sh` |
 | Windows PowerShell | `powershell -ExecutionPolicy Bypass -File .\scripts\install.ps1` |
 
@@ -64,7 +64,7 @@ lessons/<topic>/
 ## Uninstall
 
 | Platform | Command |
-|---|---|
+| --- | --- |
 | Linux or macOS | `sh scripts/uninstall.sh` |
 | Windows PowerShell | `powershell -ExecutionPolicy Bypass -File .\scripts\uninstall.ps1` |
 
@@ -80,7 +80,3 @@ Node.js 22 for contributors; end users do not need it.
 sh tests/install.sh
 node --test tests/core.test.js
 ```
-
-## Provenance and licensing
-
-See [`NOTICE.md`](NOTICE.md) before publishing this repository publicly.
