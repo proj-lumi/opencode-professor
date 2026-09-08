@@ -1,0 +1,30 @@
+{
+  "name": "opencode-professor-workflow",
+  "version": "0.1.0",
+  "description": "Adaptive probe-plan-teach workflow for OpenCode Desktop",
+  "type": "module",
+  "private": false,
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check .opencode/plugins/professor.js && node --check .opencode/lib/professor-core.js && node --check scripts/install.mjs && node --check scripts/uninstall.mjs"
+  },
+  "dependencies": {
+    "@opencode-ai/plugin": "^1.18.16"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "files": [
+    ".opencode",
+    "scripts",
+    "README.md",
+    "NOTICE.md"
+  ],
+  "keywords": [
+    "opencode",
+    "opencode-desktop",
+    "teaching",
+    "agent-skill",
+    "workflow"
+  ]
+}
