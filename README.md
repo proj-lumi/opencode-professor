@@ -1,30 +1,62 @@
 # Professor for OpenCode Desktop
 
-A simple, selectable tutoring agent for OpenCode Desktop. It teaches one idea
-at a time, defines jargon plainly, and checks understanding with application
-questions.
+The full adaptive Professor workflow for OpenCode Desktop, with a selectable
+**Professor** primary agent and `/teach`, `/resume`, `/lessons`, `/gap`, and
+`/log` commands.
+
+Professor probes the learner's current understanding, commits a dependency
+plan, teaches one reasoning step at a time, and verifies each step before
+advancing. Lesson state, quiz attempts, a Mermaid progress dashboard, and the
+session transcript are saved in the project being taught.
+
+## Included
+
+| Piece | OpenCode implementation |
+|---|---|
+| Selectable tutor | Primary agent at `.opencode/agents/professor.md` |
+| Teaching protocol | Skill at `.opencode/skills/teach/SKILL.md` |
+| Graded quizzes | Native Desktop questions graded by the Professor plugin |
+| Durable progress | `lesson_state` writes `lessons/<topic>/state.json` |
+| Lesson transcript | `lesson_log` mirrors the session to `lesson.md` |
+| Fact checking | `professor-researcher` subagent |
+| Diagrams | `professor-svg-artist` with render-and-inspect SVG tools |
+| Slash commands | `/teach`, `/resume`, `/lessons`, `/gap`, and `/log` |
 
 ## Install
 
-No package manager or Node.js installation is required.
+No package manager or separate Node.js installation is required. OpenCode
+provides the plugin runtime and prepares its matching plugin SDK at startup.
 
 | Platform | Command |
 |---|---|
 | Linux or macOS | `sh scripts/install.sh` |
 | Windows PowerShell | `powershell -ExecutionPolicy Bypass -File .\scripts\install.ps1` |
 
-Restart OpenCode Desktop, then choose **Professor** from the agent selector in
-the message composer. You can also cycle primary agents with `Tab`.
+Restart OpenCode Desktop afterward. Select **Professor** in the message
+composer, cycle to it with `Tab`, or run `/teach <topic>` directly.
 
-The installer copies the agent to:
+The scripts copy the workflow into `~/.config/opencode/`. Set
+`OPENCODE_CONFIG_DIR` to use another config directory. Re-running an installer
+updates managed files, but it refuses to overwrite files it does not manage.
+
+## Use
 
 ```text
-~/.config/opencode/agents/professor.md
+/teach HTTP and JSON fundamentals
+/resume HTTP and JSON fundamentals
+/lessons
+/gap I do not understand request headers
+/log lessons/http-and-json/lesson.md
 ```
 
-Set `OPENCODE_CONFIG_DIR` to use another OpenCode config directory. Re-running
-the installer updates its managed copy, but it refuses to overwrite an existing
-Professor agent that it does not manage.
+Lesson artifacts are created in the open project:
+
+```text
+lessons/<topic>/
+├── state.json
+├── lesson.md
+└── assets/
+```
 
 ## Uninstall
 
@@ -33,7 +65,19 @@ Professor agent that it does not manage.
 | Linux or macOS | `sh scripts/uninstall.sh` |
 | Windows PowerShell | `powershell -ExecutionPolicy Bypass -File .\scripts\uninstall.ps1` |
 
-The uninstaller only removes the agent file when it contains this repository's
-management marker.
+Only files containing this repository's management marker are removed. Lesson
+files remain untouched.
 
-The agent definition lives at [`.opencode/agents/professor.md`](.opencode/agents/professor.md).
+## Development
+
+The shell installer tests need only a POSIX shell. Core JavaScript tests require
+Node.js 22 for contributors; end users do not need it.
+
+```bash
+sh tests/install.sh
+node --test tests/core.test.js
+```
+
+## Provenance and licensing
+
+See [`NOTICE.md`](NOTICE.md) before publishing this repository publicly.

@@ -12,6 +12,17 @@ jobs:
       - run: sh -n scripts/install.sh scripts/uninstall.sh tests/install.sh
       - run: sh tests/install.sh
 
+  core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --check .opencode/plugins/professor.js
+      - run: node --check .opencode/lib/professor-core.js
+      - run: node --test tests/core.test.js
+
   powershell:
     runs-on: windows-latest
     steps:

@@ -6,19 +6,33 @@ $configDir = if ($env:OPENCODE_CONFIG_DIR) {
 } else {
     Join-Path $HOME ".config/opencode"
 }
-$destination = Join-Path $configDir "agents/professor.md"
-$marker = "<!-- Managed by opencode-professor. -->"
+$marker = "Managed by opencode-professor."
+$resources = @(
+    "agents/professor.md"
+    "agents/professor-researcher.md"
+    "agents/professor-svg-artist.md"
+    "commands/gap.md"
+    "commands/lessons.md"
+    "commands/log.md"
+    "commands/resume.md"
+    "commands/teach.md"
+    "lib/professor-core.js"
+    "plugins/professor.js"
+    "skills/teach/SKILL.md"
+)
 
-if (-not (Test-Path -LiteralPath $destination)) {
-    Write-Output "Professor is already absent."
-    return
+foreach ($destinationRel in $resources) {
+    $destination = Join-Path $configDir $destinationRel
+    if (-not (Test-Path -LiteralPath $destination)) {
+        continue
+    }
+    $existing = Get-Content -LiteralPath $destination -Raw
+    if (-not $existing.Contains($marker)) {
+        Write-Output "kept $destination (not managed by opencode-professor)"
+        continue
+    }
+    Remove-Item -LiteralPath $destination -Force
+    Write-Output "removed $destination"
 }
 
-$existing = Get-Content -LiteralPath $destination -Raw
-if (-not $existing.Contains($marker)) {
-    Write-Output "kept $destination (not managed by opencode-professor)"
-    return
-}
-
-Remove-Item -LiteralPath $destination -Force
-Write-Output "removed $destination"
+Write-Output "Professor uninstall finished."
