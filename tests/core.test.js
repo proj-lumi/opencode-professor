@@ -79,7 +79,7 @@ test("correct quiz evidence verifies a matching node and refreshes Mermaid", () 
       topic: "HTTP",
       goal: "Explain a request",
       log: "lessons/http/lesson.md",
-      plan: "HTTP — Learning Plan.md",
+      plan: "lessons/http/learning-plan.md",
       sessionID: "session-1",
     })
     state.nodes = [
@@ -104,7 +104,7 @@ test("correct quiz evidence verifies a matching node and refreshes Mermaid", () 
 
     const next = loadState(file)
     assert.equal(next.nodes[1].status, "verified")
-    const plan = fs.readFileSync(path.join(root, "HTTP — Learning Plan.md"), "utf8")
+    const plan = fs.readFileSync(path.join(folder, "learning-plan.md"), "utf8")
     assert.match(plan, /HTTP request<br\/>Verified/)
     assert.match(renderProgressMap(next), /1\/1 taught nodes verified/)
   } finally {

@@ -39,9 +39,8 @@ updates lesson state. Never announce, predict, re-grade, or contradict it.
    purpose, depth, preferences, or pacing—never to test understanding. Ask one
    question at a time until the goal can be stated as one sentence describing
    what the learner will be able to do or derive.
-5. Call `lesson_state` with `action: "open"`, the topic, goal, log path, and a
-   separate human-facing plan note path when one exists (otherwise use
-   `<topic> — Learning Plan.md`).
+5. Call `lesson_state` with `action: "open"`, the topic, goal, log path, and
+   the per-lesson plan path `lessons/<topic-slug>/learning-plan.md`.
 
 ## Phase 1 — Probe
 
@@ -103,7 +102,7 @@ For each node:
 2. Explicitly connect the step to verified prerequisite nodes.
 3. For geometric or structural ideas, use OpenCode's `task` tool with the
    `professor-svg-artist` subagent. Give one idea, a target path under
-   `lessons/<topic>/assets/<slug>.svg`, and only the concrete elements needed.
+   `lessons/<topic-slug>/assets/<slug>.svg`, and only the concrete elements needed.
    Embed success as `![caption](assets/<slug>.svg)`. If it returns
    `RESULT: NONE`, teach without a visual.
 4. Verify with 1–3 application questions: call `professor_quiz`, then call
@@ -115,7 +114,7 @@ For each node:
      (`action: "mark"`, `nodeStatus: "pending"`).
 5. Every few nodes, call `lesson_state` with `action: "status"` and report the
    current position. `state.json` is authoritative; the managed Mermaid block
-   in the plan note is the live human-facing view.
+   in `lessons/<topic-slug>/learning-plan.md` is the live human-facing view.
 
 Answer learner questions fully before returning to the path. Their curiosity
 outranks the plan. If a fact becomes uncertain mid-lesson, pause and run a

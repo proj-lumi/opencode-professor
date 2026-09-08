@@ -48,6 +48,14 @@ function requireLesson(context) {
   return lesson
 }
 
+function relativeToProject(root, file) {
+  return path.relative(root, file) || path.basename(file)
+}
+
+function defaultPlanPath(root, stateFile) {
+  return relativeToProject(root, path.join(path.dirname(stateFile), "learning-plan.md"))
+}
+
 function ensureMarkdown(file, title) {
   fs.mkdirSync(path.dirname(file), { recursive: true })
   if (!fs.existsSync(file)) {
@@ -180,7 +188,7 @@ export default async function ProfessorPlugin({ client, directory }) {
       topic: tool.schema.string().optional(),
       goal: tool.schema.string().optional(),
       log: tool.schema.string().optional(),
-      plan: tool.schema.string().optional(),
+      plan: tool.schema.string().optional().describe("Human-facing plan path; defaults to lessons/<topic-slug>/learning-plan.md"),
       path: tool.schema.string().optional(),
       nodes: tool.schema
         .array(
@@ -213,11 +221,12 @@ export default async function ProfessorPlugin({ client, directory }) {
         else if (args.topic) file = path.join(context.directory, "lessons", slugify(args.topic), "state.json")
         else throw new Error("open requires topic, log, or path")
 
+        const defaultPlan = defaultPlanPath(context.directory, file)
         let state
         if (fs.existsSync(file)) {
           state = loadState(file)
           if (args.log) state.log = args.log
-          if (args.plan) state.plan = args.plan
+          state.plan = args.plan || state.plan || defaultPlan
           state.status = "active"
         } else {
           if (!args.topic || !args.goal) throw new Error("Creating a lesson requires topic and goal")
@@ -225,7 +234,7 @@ export default async function ProfessorPlugin({ client, directory }) {
             topic: args.topic,
             goal: args.goal,
             log: args.log || logBySession.get(context.sessionID)?.relative,
-            plan: args.plan,
+            plan: args.plan || defaultPlan,
             sessionID: context.sessionID,
           })
           fs.mkdirSync(path.join(path.dirname(file), "assets"), { recursive: true })

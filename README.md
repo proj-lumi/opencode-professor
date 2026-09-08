@@ -16,7 +16,7 @@ session transcript are saved in the project being taught.
 | Selectable tutor | Primary agent at `.opencode/agents/professor.md` |
 | Teaching protocol | Skill at `.opencode/skills/teach/SKILL.md` |
 | Graded quizzes | Native Desktop questions graded by the Professor plugin |
-| Durable progress | `lesson_state` writes `lessons/<topic>/state.json` |
+| Durable progress | `lesson_state` writes `lessons/<topic>/state.json` and `learning-plan.md` |
 | Lesson transcript | `lesson_log` mirrors the session to `lesson.md` |
 | Fact checking | `professor-researcher` subagent |
 | Diagrams | `professor-svg-artist` with render-and-inspect SVG tools |
@@ -55,6 +55,7 @@ Lesson artifacts are created in the open project:
 lessons/<topic>/
 ├── state.json
 ├── lesson.md
+├── learning-plan.md
 └── assets/
 ```
 
